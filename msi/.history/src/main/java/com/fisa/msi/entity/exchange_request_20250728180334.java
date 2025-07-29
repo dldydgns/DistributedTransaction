@@ -1,0 +1,24 @@
+package com.fisa.msi.entity;
+
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class exchange_request {
+    private int id;
+    private int user_id;
+    private String direction;
+    private String base;
+    private String quote;
+    private int base_amount;
+    private int quote_amount;
+    private double rate;
+    private int guid;
+}
