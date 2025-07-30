@@ -1,0 +1,20 @@
+package com.fisa.entity;
+
+import java.sql.Date;
+import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class WithdrawalDTO {
+	private String userid = "1";
+	private String accountid; // 계좌번호
+	private int amount; // 금액
+	private LocalDateTime date;
+}
