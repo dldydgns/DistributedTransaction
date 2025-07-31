@@ -1,7 +1,6 @@
 package com.fisa.service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ import com.fisa.dto.DepositDTO;
 import com.fisa.entity.Oehwa;
 import com.fisa.repository.MisUserBankRepository;
 import com.fisa.repository.OehwaRepository;
-import com.fisa.exception.BusinessException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,13 +19,13 @@ public class MsiService {
     private final MisUserBankRepository misUserBankRepository;
 
     // 공통 트랜잭션 (입금/출금)
-    public Oehwa processOehwaTransaction(DepositDTO dto, boolean isDeposit) {
+    public void processOehwaTransaction(DepositDTO dto, boolean isDeposit) {
         String id = String.valueOf(dto.getAccountid());
         int amount = dto.getAmount();
 
         // 1. 계좌 없음
         UserBank userBank = misUserBankRepository.findById(id)
-            .orElseThrow(() -> new BusinessException("계좌가 존재하지 않습니다. (accountId=" + id + ")"));
+            .orElseThrow(() -> new IllegalArgumentException("계좌가 존재하지 않습니다. (accountId=" + id + ")"));
 
         int newAmount = isDeposit
             ? userBank.getAccount() + amount
@@ -35,7 +33,7 @@ public class MsiService {
 
         // 2. 출금 시 잔액 부족
         if (!isDeposit && newAmount < 0) {
-            throw new BusinessException("잔액이 부족합니다. (현재잔액=" + userBank.getAccount() + ", 요청금액=" + amount + ")");
+            throw new IllegalStateException("잔액이 부족합니다. (현재잔액=" + userBank.getAccount() + ", 요청금액=" + amount + ")");
         }
 
         userBank.setAccount(newAmount);
@@ -53,27 +51,28 @@ public class MsiService {
             .guid(guid)                 // guid 저장
             .build();
 
+        // 저장 (예외 발생 시 컨트롤러에서 500으로 처리)
         misUserBankRepository.save(userBank);
-        return oehwaRepository.save(newOehwa);
+        oehwaRepository.save(newOehwa);
     }
 
     // 입금 처리
-    public Oehwa setDepositOehwa(DepositDTO dto) {
-        return processOehwaTransaction(dto, true);
+    public void setDepositOehwa(DepositDTO dto) {
+        processOehwaTransaction(dto, true);
     }
 
     // 출금 처리
-    public Oehwa setWithdrawal(DepositDTO dto) {
-        return processOehwaTransaction(dto, false);
+    public void setWithdrawal(DepositDTO dto) {
+        processOehwaTransaction(dto, false);
     }
 
     // 입금 성공 여부 체크
     public boolean isDepositSuccess(String guid) {
-		return oehwaRepository.findByGuid(guid).isPresent();
+        return oehwaRepository.findByGuid(guid).isPresent();
     }
 
     // 출금 성공 여부 체크
     public boolean isWithdrawalSuccess(String guid) {
-		return oehwaRepository.findByGuid(guid).isPresent();
+        return oehwaRepository.findByGuid(guid).isPresent();
     }
 }
