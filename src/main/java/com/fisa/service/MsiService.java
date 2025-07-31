@@ -9,6 +9,7 @@ import com.fisa.entity.UserBank;
 import com.fisa.entity.Wonhwa;
 import com.fisa.repository.UserBankRepository;
 import com.fisa.repository.WonhwaRepository;
+import com.fisa.exception.BusinessException;  // 추가!
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,20 +21,26 @@ public class MsiService {
 
     public Wonhwa processTransaction(DepositDTO dto, boolean isDeposit) {
         String id = String.valueOf(dto.getAccountid());
-        int account = dto.getAmount();
+        int amount = dto.getAmount();
 
+        // 1. 계좌 없음
         UserBank userBank = userBankRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("UserBank with id '" + id + "' not found."));
+            .orElseThrow(() -> new BusinessException("계좌가 존재하지 않습니다. (accountId=" + id + ")"));
 
         int newAmount = isDeposit
-            ? userBank.getAccount() + dto.getAmount()
-            : userBank.getAccount() - dto.getAmount();
+            ? userBank.getAccount() + amount
+            : userBank.getAccount() - amount;
+
+        // 2. 출금 시 잔액 부족
+        if (!isDeposit && newAmount < 0) {
+            throw new BusinessException("잔액이 부족합니다. (현재잔액=" + userBank.getAccount() + ", 요청금액=" + amount + ")");
+        }
 
         userBank.setAccount(newAmount);
 
-        System.out.println("******************"+account);
+        System.out.println("******************" + amount);
         Wonhwa newWonhwa = Wonhwa.builder()
-            .account(account) 
+            .account(amount)
             .createAt(LocalDateTime.now())
             .type(isDeposit ? "입금" : "출금")
             .base(userBank.getBase())

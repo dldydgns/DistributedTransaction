@@ -1,7 +1,7 @@
 package com.fisa.entity;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +15,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DepositDTO {
+    private UUID guid;
     private String userid = "1";
-    private String accountid; // 계좌번호
-    private int amount; // 금액
+    private String accountid;
+    private int amount;
     private LocalDateTime date;
-
+    private Integer retryCount;   // ★ 재시도 카운트(초기 null, 필요시 0으로 세팅)
 }
