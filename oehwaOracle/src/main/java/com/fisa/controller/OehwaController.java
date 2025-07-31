@@ -1,49 +1,49 @@
 package com.fisa.controller;
 
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fisa.entity.DepositDTO;
-import com.fisa.kafka.Producer;
+import com.fisa.dto.DepositDTO;
 import com.fisa.service.MsiService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping(value="/api/Oehwa")
-@RequiredArgsConstructor 
-public class OehwaController{
-	private final MsiService msiService;
-	private final Producer producer;
-	// 입급
-	@PostMapping("/deposit")
-	public HttpStatus getOehwaDeposit(@RequestBody DepositDTO  dto) {
-		msiService.setDepositOehwa(dto);
-		return HttpStatus.OK;
-	}
-	
-	// 출금
-	@PostMapping("/withdrawal")
-	public HttpStatus getOehwaWithdrawal(@RequestBody DepositDTO  dto) {
-		msiService.setWithdrawal(dto);
-		return HttpStatus.OK;
-	}
-	
-	@GetMapping("/test")
-	public String test() {
-		producer.OehwaDeposit();
-		return "테스트 Deposit 성도";
-	}
-	@GetMapping("/test2")
-	public String test2() {
-		producer.OehwaWithdrawal();
-		return "테스트 Withdrawal 성공";
-	}
+@RequestMapping("/api/oehwa")
+@RequiredArgsConstructor
+public class OehwaController {
+
+    private final MsiService msiService;
+
+    // 외화 입금
+    @PostMapping("/deposit")
+    public ResponseEntity<String> depositOehwa(@RequestBody DepositDTO dto) {
+        msiService.setDepositOehwa(dto);
+        return ResponseEntity.ok("입금 처리 성공");
+    }
+
+    // 외화 출금
+    @PostMapping("/withdrawal")
+    public ResponseEntity<String> withdrawOehwa(@RequestBody DepositDTO dto) {
+        msiService.setWithdrawal(dto);
+        return ResponseEntity.ok("출금 처리 성공");
+    }
+
+    // 출금 성공 여부 체크 (GUID)
+    @PostMapping("/check/withdrawal")
+    public ResponseEntity<Boolean> checkWithdrawal(@RequestBody Map<String, String> body) {
+        String guid = body.get("guid");
+        boolean result = msiService.isWithdrawalSuccess(guid);
+        return ResponseEntity.ok(result);
+    }
+
+    // 입금 성공 여부 체크 (GUID)
+    @PostMapping("/check/deposit")
+    public ResponseEntity<Boolean> checkDeposit(@RequestBody Map<String, String> body) {
+        String guid = body.get("guid");
+        boolean result = msiService.isDepositSuccess(guid);
+        return ResponseEntity.ok(result);
+    }
 }

@@ -29,6 +29,7 @@ public class Oehwa {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oehwa_seq_gen")
     @SequenceGenerator(name = "oehwa_seq_gen", sequenceName = "OEHWA_SEQ", allocationSize = 1)
 	private int id;
+	private String guid;    // GUID
 	private int account;
 	private String userId;
 	private String type;
