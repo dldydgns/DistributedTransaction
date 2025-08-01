@@ -1,0 +1,12 @@
+package com.fisa.msi.entity;
+
+public class exchange_request {
+    private int id;
+    private int user_id;
+    private String direction;
+    private String base;
+    private String quote;
+    private int base_amount;
+    private int quote_amount;
+    private int rate;
+}

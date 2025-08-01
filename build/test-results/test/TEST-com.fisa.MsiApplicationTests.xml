@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.fisa.MsiApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-08-01T02:56:49.850Z" hostname="1-16" time="0.825">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.fisa.MsiApplicationTests" time="0.825"/>
+  <system-out><![CDATA[11:56:38.195 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.fisa.MsiApplicationTests]: MsiApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:56:38.426 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.fisa.MsiApplication for test class com.fisa.MsiApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.3)
+
+2025-08-01T11:56:39.577+09:00  INFO 29880 --- [msi] [    Test worker] com.fisa.MsiApplicationTests             : Starting MsiApplicationTests using Java 17 with PID 29880 (started by 1-16 in C:\ce5\99.ProjectHistory\TransactionProject\msi)
+2025-08-01T11:56:39.582+09:00  INFO 29880 --- [msi] [    Test worker] com.fisa.MsiApplicationTests             : No active profile set, falling back to 1 default profile: "default"
+2025-08-01T11:56:41.396+09:00  INFO 29880 --- [msi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-01T11:56:41.550+09:00  INFO 29880 --- [msi] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 121 ms. Found 2 JPA repository interfaces.
+2025-08-01T11:56:42.999+09:00  INFO 29880 --- [msi] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-01T11:56:43.134+09:00  INFO 29880 --- [msi] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.18.Final
+2025-08-01T11:56:43.237+09:00  INFO 29880 --- [msi] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-01T11:56:43.983+09:00  INFO 29880 --- [msi] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-01T11:56:44.052+09:00  INFO 29880 --- [msi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-01T11:56:44.730+09:00  INFO 29880 --- [msi] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@21698e5a
+2025-08-01T11:56:44.736+09:00  INFO 29880 --- [msi] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-01T11:56:44.940+09:00  INFO 29880 --- [msi] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.42
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-01T11:56:47.336+09:00  INFO 29880 --- [msi] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-01T11:56:47.520+09:00  INFO 29880 --- [msi] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-01T11:56:48.738+09:00  WARN 29880 --- [msi] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-01T11:56:49.799+09:00  INFO 29880 --- [msi] [    Test worker] com.fisa.MsiApplicationTests             : Started MsiApplicationTests in 10.876 seconds (process running for 14.419)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
