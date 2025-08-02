@@ -1,5 +1,7 @@
 package com.fisa.entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;

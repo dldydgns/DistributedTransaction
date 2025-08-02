@@ -37,8 +37,8 @@ public class OehwaConsumer {
     
     @KafkaListener(topics = "ServerOehwaDeposit", groupId = "fisa")
     @RetryableTopic(
-        attempts = "4",
-        backoff = @Backoff(delay = 2000, multiplier = 2.0),
+        attempts = "2",
+        backoff = @Backoff(delay = 1000, multiplier = 2.0),
         dltTopicSuffix = ".DLQ",
         autoCreateTopics = "true"
     )
@@ -53,8 +53,8 @@ public class OehwaConsumer {
     // 외화 출금 메시지 소비 (2회 재시도, 비즈니스 예외 discard, 시스템 예외 DLQ)
     @KafkaListener(topics = "ServerOehwaWithdrawal", groupId = "fisa")
     @RetryableTopic(
-        attempts = "4",
-        backoff = @Backoff(delay = 2000, multiplier = 2.0),
+        attempts = "2",
+        backoff = @Backoff(delay = 1000, multiplier = 2.0),
         dltTopicSuffix = ".DLQ",
         autoCreateTopics = "true"
     )

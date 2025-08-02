@@ -7,9 +7,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import com.fisa.service.MsiService;
 import com.fisa.dto.DepositDTO;
+import com.fisa.exception.BusinessException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,8 +39,8 @@ public class OehwaConsumer {
     
     @KafkaListener(topics = "ServerOehwaDeposit", groupId = "fisa")
     @RetryableTopic(
-        attempts = "4",
-        backoff = @Backoff(delay = 2000, multiplier = 2.0),
+        attempts = "2",
+        backoff = @Backoff(delay = 1000, multiplier = 2.0),
         dltTopicSuffix = ".DLQ",
         autoCreateTopics = "true"
     )
@@ -53,8 +55,8 @@ public class OehwaConsumer {
     // 외화 출금 메시지 소비 (2회 재시도, 비즈니스 예외 discard, 시스템 예외 DLQ)
     @KafkaListener(topics = "ServerOehwaWithdrawal", groupId = "fisa")
     @RetryableTopic(
-        attempts = "4",
-        backoff = @Backoff(delay = 2000, multiplier = 2.0),
+        attempts = "2",
+        backoff = @Backoff(delay = 1000, multiplier = 2.0),
         dltTopicSuffix = ".DLQ",
         autoCreateTopics = "true"
     )

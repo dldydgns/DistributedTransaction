@@ -1,7 +1,6 @@
 package com.fisa.service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -48,7 +47,7 @@ public class MsiService {
             .type(isDeposit ? "입금" : "출금")
             .base(userBank.getBase())
             .userBankId(userBank.getId())
-            .userId(dto.getUserid())   // userId는 DepositDTO에서 직접 가져옴
+            .userId(id)
             .guid(guid)
             .build();
 
@@ -67,12 +66,7 @@ public class MsiService {
         processOehwaTransaction(dto, false);
     }
 
-    // userid로 가장 최근 1건 Oehwa 찾기 (Oracle 11g XE용 네이티브 쿼리 사용!)
-    public Optional<Oehwa> findOehwaByUserId(String userId) {
-        return oehwaRepository.findLatestByUserId(userId); // ← 이 부분을 네이티브 쿼리 메서드로!
-    }
-
-    // (기존) GUID로 Oehwa 기록 존재 여부만 체크
+    // GUID로 Oehwa 기록 존재 여부만 체크 (값 반환 없음)
     public boolean existsOehwaByGuid(String guid) {
         return oehwaRepository.findByGuid(guid).isPresent();
     }
