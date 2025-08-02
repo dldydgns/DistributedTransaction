@@ -1,4 +1,4 @@
-package com.fisa.entity;
+package com.fisa.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,6 +19,6 @@ public class WithdrawalDTO {
     private String userid;          // 계좌 주인
     private String accountid;       // 계좌번호
     private int amount;             // 금액
-    private LocalDateTime date;     // 날짜
-    private Integer retryCount;     // ★ 재시도 카운트(처음엔 null, 필요시 0부터)
+    private LocalDateTime date;     // 날짜/시간
+    private Integer retryCount;     // 재시도 카운트 (처음엔 null, 필요시 0부터)
 }

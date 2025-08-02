@@ -1,4 +1,4 @@
-package com.fisa.entity;
+package com.fisa.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,10 +15,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class DepositDTO {
+    private String userid = "1";       // 기본값 "1"
     private UUID guid;
-    private String userid = "1";
     private String accountid;
     private int amount;
     private LocalDateTime date;
-    private Integer retryCount;   // ★ 재시도 카운트(초기 null, 필요시 0으로 세팅)
+    private Integer retryCount;        // 재시도 카운트 (null 가능)
 }
